@@ -1,0 +1,3 @@
+# Written by Dánnell Quesada
+
+for i in {1..3}; do bash job_scenario fin $i; done

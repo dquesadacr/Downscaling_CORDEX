@@ -1,0 +1,19 @@
+= _Downscaling CORDEX through deep learning to daily 1 km multivariate ensemble in complex terrain_
+:icons: font
+:my_name: Dánnell Quesada-Chacón
+:source-highlighter: pygments
+:pygments-linenums-mode: inline
+
+This repository contains the source code necessary to reproduce the results of the manuscript "Downscaling CORDEX through deep learning to daily 1 km multivariate ensemble in complex terrain" to be submitted to _Earth's Future_. This work is based on Quesada-Chacón et al. (2022, https://gmd.copernicus.org/articles/15/7353/2022/), where further details of the model training process can be found. The root of the folder `scripts` contains all the scripts necessary to the train the models, select the best performing ones, bias-correct the predictors and downscale the predictands. The pre-processed datasets can be found at https://doi.org/10.5281/zenodo.7558945[image:https://zenodo.org/badge/DOI/10.5281/zenodo.7558945.svg[DOI]]. Note that the scripts ran in the https://doc.zih.tu-dresden.de/jobs_and_resources/alpha_centauri/[_Alpha Centauri_] sub-cluster of the Center for Information Services and High Performance Computing (ZIH) of the Technische Universität Dresden. Nevertheless, the contents of the `job_*` files can be run on any Linux system with minor modifications.
+
+== Training the models
+
+The call `bash Submit_train_all` submits batch jobs to train all the models. The validation results and the history of the training process are then copied to the `val_hist` folder. The script `select_models.R` filters the validation results, ranks the models and selects the best performing ones per predictand and creates the `proj_models_*.rds` object which is needed to project the predictands.
+
+== Bias-correction 
+
+The script `parse_preds_units_CORDEX.R` reads the predictors in _NetCDF_ format, transforms the units and reorders the predictors to fit the training dataset, which is derived from _ERA5_. Analogously, the call `bash sing_harm_norm.sh` bias-corrects and standardises the predictors.
+
+== Projections
+
+The call `bash Submit_proj` employs the best performing models and the bias-corrected predictors to project the predictands.

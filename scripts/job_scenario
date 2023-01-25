@@ -1,0 +1,9 @@
+# Written by Dánnell Quesada
+
+bash run_1_seed.sh $1 1 $2 7777 1 _full
+bash run_1_seed.sh $1 1 $2 7777 2 _half
+bash run_1_seed.sh $1 1 $2 7777 3 _half
+bash run_1_seed.sh $1 1 $2 7777 4 _half
+bash run_1_seed.sh $1 1 $2 7777 5 _half
+
+
